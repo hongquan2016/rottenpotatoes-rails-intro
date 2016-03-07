@@ -1,11 +1,19 @@
 class MoviesController < ApplicationController
   helper_method :hilight
+  helper_method :chosen_rating?
+  
   def hilight(column)
     if(session[:order].to_s == column)
       return 'hilite'
     else
       return nil
     end
+  end
+  
+  def chosen_rating?(rating)
+    chosen_ratings = session[:ratings]
+    return true if chosen_ratings.nil?
+    chosen_ratings.include? rating
   end
   
   def movie_params
